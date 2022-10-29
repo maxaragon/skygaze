@@ -1,0 +1,6 @@
+framework module Pods_Skyapp {
+  umbrella header "Pods-Skyapp-umbrella.h"
+
+  export *
+  module * { export * }
+}
