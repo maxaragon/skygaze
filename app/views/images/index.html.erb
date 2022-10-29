@@ -1,0 +1,86 @@
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" style="margin-left:0px;">
+    <div class="content container-fluid">
+
+<!-- Page Header -->
+<div class="page-header">
+<div class="row">
+  <div class="col">
+    <h3 class="page-title">Images</h3>
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+      <li class="breadcrumb-item active">Images</li>
+    </ul>
+  </div>
+</div>
+</div>
+<!-- /Page Header -->
+
+<div class="row">
+<div class="col-sm-12">
+  <div class="card mb-0">
+  <div class="card-header">
+
+ 
+</div>
+    <div class="card-body">
+
+      <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>User ID</th>
+              <th>User Name</th>
+              <th>User Email</th>
+               <th>Image</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Addres</th>
+              <th>Altitude</th>
+              <th>Compass value</th>
+              <th>Comment</th>
+              <th>Icon</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @images.each do |image| %>
+            <tr>
+            
+            <td><%= image.id %></td> 
+            <td><%= image.user_id %></td>
+            <td><%= User.find(image.user_id).name %></td>
+            <td><%= User.find(image.user_id).email %></td>
+            <td><a href="<%= image.picture.url %>" target="_blank">View Uploaded image</a></td>
+            <td><%= image.latitude %></td>
+            <td><%= image.longitude %></td>
+            <td><%= image.addres %></td>
+            <td><%= image.altitude %></td>
+            <td><%= image.compass_value %></td>
+            <td><%= image.comment %></td>
+            <% if image.weathericon_id.to_i != 0 %>
+
+            <td><img src="<%= Weathericon.find(image.weathericon_id).icon.url %>" style="width:30px;height:30px;"></td>
+
+            <% else %>
+
+            <td><%= image.icon %></td>
+
+            <% end %>
+            
+
+            </tr>
+          <% end %>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>			
+</div>
+<!-- /Page Wrapper -->

@@ -1,0 +1,620 @@
+
+<% if session[:admin_id] != nil || session[:person_id] != nil  %>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="author" content="Riyad Faek Anabtawi Rojas - riyad.faek@gmail.com">
+
+        <title>Dashboard - Skygaze</title>
+		<link rel="stylesheet" href="/toastr.css">
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/admin/assets/img/favicon.png">
+		
+		<link rel="stylesheet" href="https://www.tienditapp.com/flatpickr.css">
+
+		<link rel="stylesheet" type="text/css" href="/lightpick.css">
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/font-awesome.min.css">
+		
+		<!-- Lineawesome CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/line-awesome.min.css">
+		
+		<!-- Chart CSS -->
+		<link rel="stylesheet" href="/admin/assets/plugins/morris/morris.css">
+		
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/style.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="/admin/assets/js/html5shiv.min.js"></script>
+			<script src="/admin/assets/js/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="/admin/assets/js/jquery-3.2.1.min.js"></script>
+		
+
+		<style>
+			.dropbtn {
+		
+			color: white;
+	
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+			}
+
+			.dropdowns {
+			position: relative;
+			display: inline-block;
+			}
+
+			.dropdown-content {
+			display: none;
+			position: absolute;
+			margin-top:20px;
+			margin-left:30px;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			color: #000;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+			}
+
+			.dropdown-content a {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			}
+
+			.dropdown-content a:hover {background-color: #f1f1f1}
+
+			
+		</style>
+    </head>
+	
+    <body id="outer-container">
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+		
+			<!-- Header -->
+            <div class="header">
+			
+		
+			<style>
+
+			.fa-stack[data-count]:after{
+				position:absolute;
+				left:100%;
+				
+				content: attr(data-count);
+				font-size:14px;
+				padding:.6em;
+				border-radius:999px;
+				line-height:.75em;
+				color: white;
+				background:rgba(255,0,0,.85);
+				text-align:center;
+				}
+
+			</style>
+				<!-- Header Title -->
+				<div class="page-title-box" style="float:left;margin-left:-80px;" >
+			
+
+
+
+								<a href="/users" style="color:#fff;margin-left:80px;font-size:16px">
+						Users
+								</a>
+						
+								<a href="/images" style="color:#fff;margin-left:40px;font-size:16px">
+						Images
+								</a>
+
+<a href="/weathericons" style="color:#fff;margin-left:40px;font-size:16px">
+						Weather Icons
+								</a>
+									<a href="/admins" style="color:#fff;margin-left:40px;font-size:16px">
+						Web Administrators
+								</a>
+
+						
+
+                </div>
+				<!-- /Header Title -->
+				
+			
+				<!-- Header Menu -->
+				<ul class="nav user-menu">
+				
+				
+			
+					
+	<li class="nav-item dropdown has-arrow main-drop">
+				<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+					<span class="user-img"><img src="/admin/assets/img/profiles/avatar-21.jpg" alt="">
+					<span class="status online"></span></span>
+					<span><%= Admin.find(session[:admin_id]).name %></span>
+				</a>
+				<div class="dropdown-menu">
+				
+					<a href="/logout">Logout</a><br>
+					
+				</div>
+			</li>
+
+					
+				</ul>
+				<!-- /Header Menu -->
+				
+				<!-- Mobile Menu -->
+				<div class="dropdown mobile-user-menu">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+					<div class="dropdown-menu dropdown-menu-right">
+			
+								<a href="/users">
+						Users
+								</a>
+						
+								<a href="/images">
+						Images
+								</a>
+									
+								<a href="/admins">
+						Administrators
+								</a>
+
+							<a href="/logout">
+						Logout
+								</a>
+				
+					</div>
+				</div>
+				<!-- /Mobile Menu -->
+				
+            </div>
+			<!-- /Header -->
+			
+		
+			
+		<%= yield %>
+			
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+      
+		
+		<!-- Bootstrap Core JS -->
+        <script src="/admin/assets/js/popper.min.js"></script>
+        <script src="/admin/assets/js/bootstrap.min.js"></script>
+		
+		<!-- Slimscroll JS -->
+		<script src="/admin/assets/js/jquery.slimscroll.min.js"></script>
+		
+		<!-- Chart JS -->
+		<script src="/admin/assets/plugins/morris/morris.min.js"></script>
+		<script src="/admin/assets/plugins/raphael/raphael.min.js"></script>
+		<script src="/admin/assets/js/chart.js"></script>
+		
+		<!-- Custom JS -->
+		<script src="/admin/assets/js/app.js"></script>
+
+
+
+        <script src="/toastr.min.js"></script>
+        <script>
+        
+        document.getElementById('outer-container').onclick = function(e) {
+			if(e.target != document.getElementById('dropbtn')) {
+				document.getElementById('dropdown-content').style.display="none";
+			} else {
+		
+			}
+		}
+        
+        function show_menu(){
+
+			document.getElementById('dropdown-content').style.display="block";
+		
+		}
+          $(function () {
+        
+            "use strict";
+        
+            //TOASTR NOTIFICATION
+            // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            toastr.options = {
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": 3500,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "slideDown",
+            "hideMethod": "fadeOut"
+            };
+        
+          <% flash.each do |key, value| %>
+        toastr.info('<h5 style="margin-top: 0px; margin-bottom: 5px;color:#0253cc;font-size:22px;"><b><%= value %></b></h5>');
+        
+              <% end %>
+        
+        
+        
+        
+          });
+          $("textarea").focus();
+        
+		</script>
+		
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js" integrity="sha512-+ruHlyki4CepPr07VklkX/KM5NXdD16K1xVwSva5VqOVbsotyCQVKEwdQ1tAeo3UkHCXfSMtKU/mZpKjYqkxZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+		<script src="/lightpick.js"></script>
+
+
+		<script>
+    function rangeText(start, end) {
+    var str = '';
+    str += start ? start.format('Do MMMM YYYY') + ' to ' : '';
+    str += end ? end.format('Do MMMM YYYY') : '...';
+
+    return str;
+}
+    new Lightpick({
+    field: document.getElementById('demo'),
+    lang: 'es',
+    numberOfMonths:2,
+	numberOfColumns: 3,
+	<% if request.path == "/events" || request.path == "/gastos-oficina" || request.path == "/fame" || request.path == "/gbf" || request.path == "/cash" %>
+	singleDate: false,
+	<% else %>
+	singleDate: true,
+	<% end %>
+    onSelect: function(start, end){
+        document.getElementById('result').innerHTML = rangeText(start, end);
+    }
+});
+
+
+
+</script>
+
+<script>
+
+function checkField(val)
+{
+
+	var tipo = $("#tipo").val();
+	var forma = $("#forma").val();
+	var category = $("#category_select").val();
+	if (tipo == "Egreso"){
+	
+		if (forma == 'GBF' || forma == 'FAME'){
+
+
+		
+			
+		
+	
+		}
+	}
+
+}
+
+        $(document).ready(function () {
+
+
+			<% if (request.path.include? "/events") || (request.path.include? "/movements") || (request.path.include? "/build_budget") %>
+			$('.js-example-basic-multiple').select2();
+			<% end %>
+
+
+			var ddlStates = $("#category"); // will be update after success ajax call
+			var gasto = $("#gasto");
+			var recibo = $("#recibo");
+			var proveedor = $("#proveedor");
+			var encargado = $("#encargado");
+			var detalle = $("#detalle"); 
+		
+			var event = $("#event"); 
+
+			
+<% if @movement %>
+
+			
+
+			<% if @movement.category.to_s != "Gastos Oficina" %>
+					
+				gasto.css("display", "none");
+
+			<% else %>
+
+				encargado.css("display", "none");	
+				event.css("display", "none");	
+				proveedor.css("display", "none");	
+				gasto.css("display", "");
+				document.getElementById('select_proveedorss').value = "";
+				document.getElementById('select_eventos').value = "";
+				document.getElementById('encargado_select').value = "";
+
+			<% end %>
+
+
+
+			<% if @movement.category.to_s != "" %>
+
+			<% if (@movement.category.include? "Honorarios") || (@movement.category.include? "JGB") %>
+		
+
+		
+					proveedor.css("display", "none");
+					encargado.css("display", "");
+				
+					document.getElementById('select_proveedorss').value = "";
+				
+			<% else %>
+			
+					<% if (@movement.category == 'Proveedores Coordinacion' || @movement.category == 'Proveedores Decoracion')%>
+						event.css("display", "");
+						proveedor.css("display", "");
+						encargado.css("display", "none");
+					
+					<% elsif (@movement.category == 'Gastos Oficina') %>
+						proveedor.css("display", "none");
+						event.css("display", "none");
+						gasto.css("display", "");
+						document.getElementById('select_eventos').value = "";
+					<% else %>
+						encargado.css("display", "none");
+				
+						document.getElementById('select_eventos').value = "";
+						proveedor.css("display", "");
+						event.css("display", "none");
+					<% end %>
+					$("#monto").attr("readonly", false); 
+			<% end %>
+
+			<% end %>
+
+			<% end %>
+		
+			var monto = $("#monto");
+
+			$("#category_select").on('change', function () {
+                var selectedItem = $(this).val();
+                var event = $("#event"); // will be update after success ajax call
+              var forma = $("#forma").val();
+			  detalle.css("display", "");
+
+
+				if (selectedItem.includes("Honorarios") || selectedItem.includes("JGB")){
+				
+					gasto.css("display", "none");
+					proveedor.css("display", "none");
+					encargado.css("display", "");
+				
+					document.getElementById('select_proveedorss').value = "";
+			
+
+                }else{
+
+				
+					if (selectedItem == 'Proveedores Coordinacion' || selectedItem == 'Proveedores Decoracion'){
+						event.css("display", "");
+						proveedor.css("display", "");
+						encargado.css("display", "none");
+						gasto.css("display", "none");
+					}else if (selectedItem == 'Gastos Oficina'){
+						proveedor.css("display", "none");
+						event.css("display", "none");
+						gasto.css("display", "");
+						document.getElementById('select_eventos').value = "";
+					}else{
+						encargado.css("display", "none");
+						gasto.css("display", "none");
+						document.getElementById('select_eventos').value = "";
+						proveedor.css("display", "");
+						event.css("display", "none");
+					}
+					$("#monto").attr("readonly", false); 
+                }
+				});  
+			
+
+				
+           $("#tipo").on('change', function () {
+                var selectedItem = $(this).val();
+                var ddlStates = $("#category"); // will be update after success ajax call
+              
+                if (selectedItem == 'Ingreso'){
+					gasto.css("display", "none");
+					ddlStates.css("display", "none");
+					proveedor.css("display", "none");
+			
+                }else{
+               
+					gasto.css("display", "none");
+					ddlStates.css("display", "");
+					proveedor.css("display", "");
+			
+                }
+
+				});  
+				
+						
+			
+
+
+				$("#forma").on('change', function () {
+					var selectedItem = $(this).val();
+					var ddlStates = $("#tipo").val(); // will be update after success ajax call
+					var category = $("#category_select").val();
+					if (ddlStates == "Egreso"){
+					
+						if (selectedItem == 'GBF' || selectedItem == 'FAME'){
+
+						detalle.css("display", "");
+						
+					
+					
+						}else{
+							
+					
+						}
+
+					}else{
+
+						
+					}
+					
+	
+					});  
+				
+        });
+    </script>
+		
+    </body>
+</html>
+
+<% else %>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+         
+        <title>Login - Skygaze</title>
+		<link rel="stylesheet" href="/toastr.css">
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/admin/assets/img/favicon.png">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/font-awesome.min.css">
+		
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="/admin/assets/css/style.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="/admin/assets/js/html5shiv.min.js"></script>
+			<script src="/admin/assets/js/respond.min.js"></script>
+		<![endif]-->
+
+
+		<script src="/admin/assets/js/jquery-3.2.1.min.js"></script>
+
+
+
+
+    </head>
+    <body class="account-page">
+	
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+			<div class="account-content">
+			<div class="container">
+				
+					<!-- Account Logo -->
+					<div class="account-logo">
+						<a href="/"><img src="/logo_square.png" alt="Bodas"></a>
+					</div>
+					<!-- /Account Logo -->
+					
+					<div class="account-box">
+						<div class="account-wrapper">
+							<h3 class="account-title">Login</h3>
+							<p class="account-subtitle">Access</p>
+							
+							<!-- Account Form -->
+							<form action="/login" method="POST">
+								<div class="form-group">
+									<label>Email</label>
+									<input class="form-control"  name="email" type="text">
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="col">
+											<label>Password</label>
+										</div>
+										<div class="col-auto">
+											
+										</div>
+									</div>
+									<input class="form-control" name="password" type="password">
+								</div>
+								<div class="form-group text-center">
+									<button class="btn btn-primary account-btn" type="submit">Login</button>
+								</div>
+								
+							</form>
+							<!-- /Account Form -->
+							
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+     
+		
+		<!-- Bootstrap Core JS -->
+        <script src="/admin/assets/js/popper.min.js"></script>
+        <script src="/admin/assets/js/bootstrap.min.js"></script>
+		
+		<!-- Custom JS -->
+		<script src="/admin/assets/js/app.js"></script>
+		<script src="/toastr.min.js"></script>
+        <script>
+        
+        
+        
+        
+          $(function () {
+        
+            "use strict";
+        
+            //TOASTR NOTIFICATION
+            // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            toastr.options = {
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": 3500,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "slideDown",
+            "hideMethod": "fadeOut"
+            };
+        
+          <% flash.each do |key, value| %>
+        toastr.info('<h5 style="margin-top: 0px; margin-bottom: 5px;color:#0253cc;font-size:22px;"><b><%= value %></b></h5>');
+        
+              <% end %>
+        
+        
+        
+        
+          });
+          $("textarea").focus();
+        
+		</script>
+		
+    </body>
+</html>
+
+<% end %>

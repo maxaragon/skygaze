@@ -1,0 +1,68 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper" style="margin-left:0px;">
+    <div class="content container-fluid">
+
+<!-- Page Header -->
+<div class="page-header">
+<div class="row">
+  <div class="col">
+    <h3 class="page-title">Users</h3>
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+      <li class="breadcrumb-item active">Users</li>
+    </ul>
+  </div>
+</div>
+</div>
+<!-- /Page Header -->
+
+<div class="row">
+<div class="col-sm-12">
+  <div class="card mb-0">
+  <div class="card-header">
+
+ 
+</div>
+    <div class="card-body">
+
+      <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+          <thead>
+            <tr>
+            <th>ID</th>
+            <th>Name</th>
+             <th>Email</th>
+                  <th>Mac address</th>
+      <th>Unique value</th>
+      <th>Device token</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+
+            </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
+            <tr>
+            <td><%= user.id %></td> 
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+         <td><%= user.macaddress %></td>
+        <td><%= user.unique_va %></td>
+        <td><%= user.device_token %></td>
+        <td><%= user.latitude %></td>
+        <td><%= user.longitude %></td>
+
+            </tr>
+          <% end %>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>			
+</div>
+<!-- /Page Wrapper -->

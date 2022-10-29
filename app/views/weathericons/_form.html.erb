@@ -1,0 +1,48 @@
+
+
+     <%= form_with(model: weathericon, multipart: true, local: true) do |form| %>
+
+ 
+  <% if weathericon.errors.any? %>
+    <div id="error_explanation">
+      <h2 style="font-size:16px;color:red;"><%= pluralize(weathericon.errors.count, "error") %> prohibieron que el weathericonistrador se guarde:</h2>
+
+      <ul>
+        <% weathericon.errors.full_messages.each do |message| %>
+          <li style="font-size:14px;color:red;"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group row">
+  <label class="col-form-label col-md-2">Name</label>
+  <div class="col-md-10">
+      <input type="text" name="weathericon[name]" value="<%= @weathericon.name %>" class="form-control">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-md-2">Icon PNG</label>
+  <div class="col-md-10">
+      <input type="file" name="weathericon[icon]" class="form-control">
+      <img src="<%= @weathericon.icon.url %>">
+  </div>
+</div>
+
+
+
+
+<div class="form-group row">
+<label class="col-form-label col-md-2"></label>
+<div class="col-md-10">
+<button class="btn btn-primary" style="width:100%" type="submit">Guardar</button>
+</div>
+
+</div>
+
+
+
+
+<% end %>
+

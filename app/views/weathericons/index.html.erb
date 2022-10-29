@@ -1,0 +1,64 @@
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" style="margin-left:0px;">
+    <div class="content container-fluid">
+
+<!-- Page Header -->
+<div class="page-header">
+<div class="row">
+  <div class="col">
+    <h3 class="page-title">Weather Icons</h3>
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+      <li class="breadcrumb-item active">Weather Icons</li>
+    </ul>
+  </div>
+</div>
+</div>
+<!-- /Page Header -->
+
+<div class="row">
+<div class="col-sm-12">
+  <div class="card mb-0">
+  <div class="card-header">
+  <h4 class="card-title mb-0"><a href="/weathericons/new">+ Add Weathericon </a></h4>
+ 
+</div>
+    <div class="card-body">
+
+      <div class="table-responsive">
+        <table class="datatable table table-stripped mb-0">
+          <thead>
+            <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Icon</th>
+      
+   
+            <th colspan="1"></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @weathericons.each do |weathericon| %>
+            <tr>
+            <td><%= weathericon.id %></td> 
+            <td><%= weathericon.name %></td>
+              <td><img style="width:20px;height:20px;" src="<%= weathericon.icon.url %>"></td>
+        
+            
+              <td><%= link_to 'Edit', edit_weathericon_path(weathericon) %></td>
+           
+            </tr>
+          <% end %>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>			
+</div>
+<!-- /Page Wrapper -->
